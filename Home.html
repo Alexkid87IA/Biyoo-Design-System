@@ -185,7 +185,7 @@
     margin: 0;
     font-family: var(--font-display); font-weight: 800;
     font-size: clamp(72px, 8.5vw, 144px);
-    line-height: 0.88; letter-spacing: -.05em;
+    line-height: 0.9; letter-spacing: -.02em;
     font-variation-settings: "wdth" 92, "opsz" 96;
   }
   .hero-left h1 .row { display: block; white-space: nowrap; }
@@ -499,7 +499,7 @@
   }
   .services .list { border-top: 3px solid var(--ink); }
   .srow {
-    display: grid; grid-template-columns: 100px 1fr 1.4fr 200px;
+    display: grid; grid-template-columns: 100px 1fr 1.4fr 200px 40px;
     gap: 32px; align-items: center;
     padding: 44px 24px;
     border-bottom: 1px solid #D9D1BC;
@@ -538,11 +538,11 @@
   }
   .srow:hover .tag { color: var(--volt); border-color: var(--volt); }
   .srow .arrow-r {
-    position: absolute; right: 32px; top: 50%; transform: translateY(-50%);
     font-family: var(--font-display); font-size: 28px; color: var(--volt);
     opacity: 0; transition: opacity 200ms, transform 200ms;
+    text-align: right;
   }
-  .srow:hover .arrow-r { opacity: 1; transform: translateY(-50%) translateX(4px); }
+  .srow:hover .arrow-r { opacity: 1; transform: translateX(4px); }
 
   /* ════════════════════ POST-PROD SPOTLIGHT ════════════════════ */
   .postprod {
@@ -965,6 +965,7 @@
   <ul>
     <li><a href="#projets" class="on">Projets</a></li>
     <li><a href="#services">Services</a></li>
+    <li><a href="#postprod">Prod</a></li>
     <li><a href="#ia">IA</a></li>
     <li><a href="#a-propos">Équipe</a></li>
     <li><a href="#brief">Contact</a></li>
@@ -1203,7 +1204,7 @@
 </div>
 
 <!-- ═══════════════════════ POST-PROD SPOTLIGHT ═══════════════════════ -->
-<section class="postprod">
+<section class="postprod" id="postprod">
   <div class="head">
     <div>
       <span class="eyebrow">— DU RUSH AU MASTER</span>
