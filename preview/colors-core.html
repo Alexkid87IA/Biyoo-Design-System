@@ -1,0 +1,16 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;background:var(--bone);color:var(--ink);font-family:var(--font-body)}
+  .wrap{padding:24px 28px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .sw{display:flex;flex-direction:column;gap:8px}
+  .chip{height:140px;border-radius:6px;border:1px solid rgba(0,0,0,.06);display:flex;align-items:flex-end;padding:10px;color:#fff;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+  .meta{font-family:var(--font-mono);font-size:11px;color:#3A3530;display:flex;justify-content:space-between}
+  .meta b{font-weight:500}
+</style></head>
+<body><div class="wrap">
+  <div class="sw"><div class="chip" style="background:#0B0B0B">Ink</div><div class="meta"><b>--ink</b><span>#0B0B0B</span></div></div>
+  <div class="sw"><div class="chip" style="background:#F2EDE2;color:#0B0B0B;border:1px solid #D9D1BC">Bone</div><div class="meta"><b>--bone</b><span>#F2EDE2</span></div></div>
+  <div class="sw"><div class="chip" style="background:#D8FF36;color:#0B0B0B">Volt</div><div class="meta"><b>--volt</b><span>#D8FF36</span></div></div>
+  <div class="sw"><div class="chip" style="background:#FF3F1F">Heat</div><div class="meta"><b>--heat</b><span>#FF3F1F</span></div></div>
+</div></body></html>

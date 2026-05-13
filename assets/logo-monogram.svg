@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <rect x="2" y="2" width="196" height="196" fill="#0B0B0B"></rect>
+  <text x="100" y="138" text-anchor="middle" font-family="&#39;Bricolage Grotesque&#39;, system-ui, sans-serif" font-weight="800" font-size="150" letter-spacing="-0.06em" fill="#D8FF36">B</text>
+  
+  <g stroke="#D8FF36" stroke-width="3">
+    <path d="M14 14 h18 M14 14 v18"></path>
+    <path d="M186 14 h-18 M186 14 v18"></path>
+    <path d="M14 186 h18 M14 186 v-18"></path>
+    <path d="M186 186 h-18 M186 186 v-18"></path>
+  </g>
+</svg>

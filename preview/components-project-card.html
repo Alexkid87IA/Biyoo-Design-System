@@ -1,0 +1,25 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--font-body)}
+  .wrap{padding:24px 28px;display:grid;grid-template-columns:1.2fr 1fr;gap:18px}
+  .card{display:flex;flex-direction:column;gap:10px}
+  .frame{aspect-ratio:16/9;background:linear-gradient(135deg,#3a3530 0%,#0B0B0B 60%,#22221F 100%);position:relative;overflow:hidden}
+  .frame::after{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(216,255,54,.06) 0 6px,transparent 6px 18px)}
+  .tc{position:absolute;left:10px;bottom:10px;font-family:var(--font-mono);font-size:10.5px;background:rgba(0,0,0,.6);padding:4px 7px;letter-spacing:.04em}
+  .badge{position:absolute;right:10px;top:10px;font-family:var(--font-mono);font-size:10px;background:var(--volt);color:var(--ink);padding:4px 7px;letter-spacing:.06em;text-transform:uppercase}
+  .head{font-family:var(--font-display);font-weight:700;font-size:22px;letter-spacing:-.025em;line-height:1.05}
+  .meta{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#7F7A6E;display:flex;justify-content:space-between}
+</style></head>
+<body><div class="wrap">
+  <div class="card">
+    <div class="frame"><span class="badge">FILM</span><span class="tc">00:00:42:18</span></div>
+    <div class="head">Hors-saison.</div>
+    <div class="meta"><span>Maison Chambord · 2026</span><span>04 / 12</span></div>
+  </div>
+  <div class="card">
+    <div class="frame" style="background:linear-gradient(135deg,#FF3F1F 0%,#0B0B0B 80%);"><span class="badge" style="background:var(--heat);color:var(--bone)">SOCIAL</span><span class="tc">00:00:09:24</span></div>
+    <div class="head">Drop 03.</div>
+    <div class="meta"><span>Label X · 2025</span><span>07 / 12</span></div>
+  </div>
+</div></body></html>

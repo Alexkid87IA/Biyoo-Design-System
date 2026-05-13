@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" fill="none">
+  
+  <defs>
+    
+  </defs>
+  <text x="0" y="160" class="lt" fill="currentColor">BIY</text>
+  
+  <text x="350" y="160" class="lt" fill="currentColor">OO</text>
+  <g stroke="currentColor" stroke-width="3">
+    <line x1="445" y1="100" x2="465" y2="100"></line>
+    <line x1="455" y1="90" x2="455" y2="110"></line>
+    <line x1="585" y1="100" x2="605" y2="100"></line>
+    <line x1="595" y1="90" x2="595" y2="110"></line>
+  </g>
+</svg>

@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>BIYOO — Brand Bible</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<script src="deck-stage.js"></script>
+<style>
+  :root { --slide-w: 1920px; --slide-h: 1080px; }
+  html, body { margin: 0; background: #000; }
+  deck-stage { background: #000; }
+
+  /* ───── slide base ───── */
+  section {
+    width: 1920px; height: 1080px;
+    background: var(--ink); color: var(--bone);
+    font-family: var(--font-body);
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  section.bone { background: var(--bone); color: var(--ink); --fg-1: var(--ink); --fg-2:#3A3530; --fg-3:#6B6357; --rule:#D9D1BC; }
+  section.volt { background: var(--volt); color: var(--ink); --fg-1: var(--ink); --fg-2:#1F2A05; --rule:#0B0B0B; }
+
+  /* ───── chrome ───── */
+  .chrome {
+    position: absolute; left: 80px; right: 80px; top: 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: 18px;
+    letter-spacing: .08em; text-transform: uppercase;
+    color: var(--fg-3, #7F7A6E);
+    z-index: 5;
+  }
+  .chrome b { color: currentColor; font-weight: 500; font-family: var(--font-mono); }
+  .brand-mark { display: inline-flex; gap: 16px; align-items: center; color: var(--fg-1); }
+  .brand-mark .dot { width: 10px; height: 10px; background: var(--volt); display: inline-block; }
+  section.volt .brand-mark .dot { background: var(--ink); }
+
+  .foot {
+    position: absolute; left: 80px; right: 80px; bottom: 60px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    font-family: var(--font-mono); font-size: 18px;
+    letter-spacing: .08em; text-transform: uppercase;
+    color: var(--fg-3, #7F7A6E);
+    z-index: 5;
+  }
+
+  /* ───── body container ───── */
+  .body {
+    flex: 1; padding: 160px 80px 140px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    gap: 48px;
+  }
+  .body.center { justify-content: center; }
+  .body.top { justify-content: flex-start; padding-top: 160px; }
+
+  /* ───── type ───── */
+  h1, h2, h3, p { margin: 0; }
+  .mega { font-family: var(--font-display); font-weight: 800; font-size: 280px; line-height: .82; letter-spacing: -0.05em; font-variation-settings: "wdth" 92, "opsz" 96; }
+  .display { font-family: var(--font-display); font-weight: 700; font-size: 184px; line-height: .88; letter-spacing: -0.045em; }
+  .h1 { font-family: var(--font-display); font-weight: 700; font-size: 128px; line-height: .94; letter-spacing: -0.035em; }
+  .h2 { font-family: var(--font-display); font-weight: 600; font-size: 72px; line-height: 1; letter-spacing: -0.03em; }
+  .h3 { font-family: var(--font-display); font-weight: 600; font-size: 44px; line-height: 1.06; letter-spacing: -0.025em; }
+  .lead { font-family: var(--font-body); font-weight: 400; font-size: 36px; line-height: 1.32; letter-spacing: -0.01em; max-width: 1100px; }
+  .body-lg { font-family: var(--font-body); font-weight: 400; font-size: 26px; line-height: 1.45; max-width: 900px; }
+  .mono { font-family: var(--font-mono); font-size: 20px; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-3, #7F7A6E); }
+  .mono-lg { font-family: var(--font-mono); font-size: 26px; letter-spacing: .04em; }
+  .volt { color: var(--volt); }
+  .heat { color: var(--heat); }
+
+  /* ───── tags / chips ───── */
+  .chip { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 18px; letter-spacing: .08em; text-transform: uppercase; padding: 12px 18px; border-radius: 4px; background: #22221F; color: var(--bone); }
+  .chip.volt-fill { background: var(--volt); color: var(--ink); }
+  .chip.heat-fill { background: var(--heat); color: var(--bone); }
+  .chip-row { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  /* ───── reusable bits ───── */
+  .marquee {
+    position: absolute; left: 0; right: 0;
+    padding: 28px 0; overflow: hidden; white-space: nowrap;
+    border-top: 1px solid var(--rule, #22221F); border-bottom: 1px solid var(--rule, #22221F);
+  }
+  .marquee.top { top: 0; border-top: none; }
+  .marquee.bot { bottom: 0; border-bottom: none; }
+  .marquee-track { display: inline-flex; gap: 64px; align-items: center; animation: scroll 32s linear infinite; will-change: transform; }
+  .marquee .item { font-family: var(--font-display); font-weight: 700; font-size: 56px; letter-spacing: -.03em; line-height: 1; display: inline-flex; gap: 64px; align-items: center; }
+  .marquee .item::after { content: "●"; font-size: 22px; color: var(--fg-3,#7F7A6E); }
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* registration crosshairs in viewport corners */
+  .reg { position: absolute; width: 28px; height: 28px; border-color: var(--fg-3, #7F7A6E); border-style: solid; }
+  .reg.tl { top: 28px; left: 28px; border-width: 1.5px 0 0 1.5px; }
+  .reg.tr { top: 28px; right: 28px; border-width: 1.5px 1.5px 0 0; }
+  .reg.bl { bottom: 28px; left: 28px; border-width: 0 0 1.5px 1.5px; }
+  .reg.br { bottom: 28px; right: 28px; border-width: 0 1.5px 1.5px 0; }
+
+  /* grain overlay (subtle on ink) */
+  .grain::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+    opacity: .12; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .9 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+</style>
+</head>
+<body>
+
+<deck-stage>
+
+<!-- ════════════════ 01 — TITLE ════════════════ -->
+<section data-screen-label="01 Title" class="grain">
+  <div class="chrome">
+    <span class="brand-mark"><span class="dot"></span><b>BIYOO</b></span>
+    <span>BRAND BIBLE · V.1 · MAI 2026</span>
+  </div>
+  <div class="reg tl"></div><div class="reg tr"></div><div class="reg bl"></div><div class="reg br"></div>
+
+  <div class="body center">
+    <div class="mono">MAISON DE PRODUCTION · PARIS · EST. 2026</div>
+    <div class="mega">BIY<span class="volt">OO</span>.</div>
+    <div class="lead" style="margin-top:24px">Du brief au final cut.</div>
+  </div>
+
+  <div class="foot">
+    <span>01 / 20</span>
+    <span>00:00:00:00</span>
+  </div>
+</section>
+
+<!-- ════════════════ 02 — MANIFESTO ════════════════ -->
+<section data-screen-label="02 Manifesto">
+  <div class="chrome">
+    <span class="brand-mark"><span class="dot"></span><b>MANIFESTE</b></span>
+    <span>SC.01 / TK.01</span>
+  </div>
+  <div class="body">
+    <div class="mono">— MANIFESTE</div>
+    <div class="display">On voit <span class="volt">grand</span>.<br>Tu viens ?</div>
+    <div class="body-lg" style="max-width:1200px">
+      On produit pour celles et ceux qui ont une vision et pas forcément le budget plateau. Film, série, social, IA — la qualité production reste non-négociable. C'est le reste qu'on optimise.
+    </div>
+  </div>
+  <div class="foot"><span>02 / 20</span><span>MANIFESTE</span></div>
+</section>
+
+<!-- ════════════════ 03 — QUI ════════════════ -->
+<section data-screen-label="03 Qui" class="bone">
+  <div class="chrome">
+    <span class="brand-mark"><span class="dot"></span><b>BIYOO</b></span>
+    <span>SC.01 / TK.02</span>
+  </div>
+  <div class="body" style="flex-direction:row;align-items:flex-end;gap:120px">
+    <div style="flex:1.2">
+      <div class="mono" style="margin-bottom:48px">— QUI ON EST</div>
+      <h1 class="h1">Une maison<br>de production<br><span class="heat">full-stack</span>.</h1>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:32px">
+      <div class="body-lg">Pré-prod, production, post — sous le même toit. Une équipe, un brief, un final cut.</div>
+      <div class="body-lg">Implantation à Paris, déploiement partout où le projet va.</div>
+      <div class="mono-lg" style="color:#3A3530">📍 PARIS  ·  EU + WORLD</div>
+    </div>
+  </div>
+  <div class="foot"><span>03 / 20</span><span>BIYOO</span></div>
+</section>
+
+<!-- ════════════════ 04 — VERTICALES ════════════════ -->
+<section data-screen-label="04 Verticales">
+  <div class="chrome">
+    <span class="brand-mark"><span class="dot"></span><b>VERTICALES</b></span>
+    <span>4 SUR 4</span>
+  </div>
+  <div class="body top" style="gap:0">
+    <div class="mono" style="margin-bottom:64px">— CE QU'ON FAIT</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--rule,#22221F)">
+      <div style="padding:48px 64px 48px 0;border-bottom:1px solid #22221F;border-right:1px solid #22221F;display:flex;align-items:flex-start;gap:48px">
+        <div class="h1 volt" style="font-size:128px;line-height:.9">01</div>
+        <div><div class="h2">Film</div><div class="body-lg" style="margin-top:18px;color:#BDB7A8;font-size:24px">Long, court, doc, clip. Du pitch à la première.</div></div>
+      </div>
+      <div style="padding:48px 0 48px 64px;border-bottom:1px solid #22221F;display:flex;align-items:flex-start;gap:48px">
+        <div class="h1 volt" style="font-size:128px;line-height:.9">02</div>
+        <div><div class="h2">Séries</div><div class="body-lg" style="margin-top:18px;color:#BDB7A8;font-size:24px">Concept, écriture, pilote, saison complète.</div></div>
+      </div>
+      <div style="padding:48px 64px 48px 0;border-right:1px solid #22221F;display:flex;align-items:flex-start;gap:48px">
+        <div class="h1 volt" style="font-size:128px;line-height:.9">03</div>
+        <div><div class="h2">Social</div><div class="body-lg" style="margin-top:18px;color:#BDB7A8;font-size:24px">Reels, TikTok, capsules. Vertical-first, livré rapide.</div></div>
+      </div>
+      <div style="padding:48px 0 48px 64px;display:flex;align-items:flex-start;gap:48px">
+        <div class="h1 volt" style="font-size:128px;line-height:.9">04</div>
+        <div><div class="h2">IA</div><div class="body-lg" style="margin-top:18px;color:#BDB7A8;font-size:24px">Photo &amp; vidéo génératives — qualité plateau, sans le plateau.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>04 / 20</span><span>FILM · SÉRIES · SOCIAL · IA</span></div>
+</section>
+
+<!-- ════════════════ 05 — PIPELINE ════════════════ -->
+<section data-screen-label="05 Pipeline" class="bone">
+  <div class="chrome"><span class="brand-mark"><span class="dot"></span><b>PIPELINE</b></span><span>SC.02 / TK.01</span></div>
+  <div class="body">
+    <div class="mono">— DU BRIEF AU FINAL CUT</div>
+    <h1 class="h1">La totale,<br>sous un seul toit.</h1>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:32px;border-top:2px solid var(--ink)">
+      <div style="padding:40px 48px 0 0;border-right:1px solid #D9D1BC">
+        <div class="mono-lg" style="color:#6B6357">PHASE 01</div>
+        <div class="h2" style="margin-top:14px">Pré-prod</div>
+        <div class="body-lg" style="margin-top:18px;font-size:22px;color:#3A3530">Brief, écriture, casting, repérages, planning, devis. On cadre tout avant de tourner.</div>
+      </div>
+      <div style="padding:40px 48px;border-right:1px solid #D9D1BC">
+        <div class="mono-lg" style="color:#6B6357">PHASE 02</div>
+        <div class="h2" style="margin-top:14px">Production</div>
+        <div class="body-lg" style="margin-top:18px;font-size:22px;color:#3A3530">Tournage. Une équipe, un set, un plan. Pas de plan B — juste un plan.</div>
+      </div>
+      <div style="padding:40px 0 0 48px">
+        <div class="mono-lg" style="color:#6B6357">PHASE 03</div>
+        <div class="h2" style="margin-top:14px">Post-prod</div>
+        <div class="body-lg" style="margin-top:18px;font-size:22px;color:#3A3530">Montage, grading, sound design, motion. Livré, prêt à diffuser.</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>05 / 20</span><span>PRÉ-PROD · PROD · POST</span></div>
+</section>
+
+<!-- ════════════════ 06 — POUR QUI ════════════════ -->
+<section data-screen-label="06 Pour qui">
+  <div class="chrome"><span class="brand-mark"><span class="dot"></span><b>POUR QUI</b></span><span>SC.02 / TK.02</span></div>
+  <div class="body top">
+    <div class="mono" style="margin-bottom:48px">— ON TRAVAILLE POUR</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:0">
+      <div style="border:1px solid #22221F;padding:36px"><div class="mono">01</div><div class="h3" style="margin-top:18px">Marques &<br>annonceurs</div></div>
+      <div style="border:1px solid #22221F;padding:36px"><div class="mono">02</div><div class="h3" style="margin-top:18px">Agences pub<br>& com</div></div>
+      <div style="border:1px solid #22221F;padding:36px"><div class="mono">03</div><div class="h3" style="margin-top:18px">Diffuseurs &<br>plateformes</div></div>
+      <div style="border:1px solid #22221F;padding:36px"><div class="mono">04</div><div class="h3" style="margin-top:18px">Producteurs<br>exécutifs</div></div>
+      <div style="border:1px solid #22221F;padding:36px"><div class="mono">05</div><div class="h3" style="margin-top:18px">Institutions,<br>culture, ONG</div></div>
+      <div style="border:1px solid #22221F;padding:36px;background:var(--volt);color:var(--ink)"><div class="mono" style="color:#1F2A05">06</div><div class="h3" style="margin-top:18px">Artistes<br>& labels</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>06 / 20</span><span>B2B + CULTURE</span></div>
+</section>
+
+<!-- ════════════════ 07 — IA SPÉCIALITÉ ════════════════ -->
+<section data-screen-label="07 IA spécialité" class="volt">
+  <div class="chrome"><span class="brand-mark"><span class="dot"></span><b>SPÉCIALITÉ</b></span><span>SC.03 / TK.01</span></div>
+  <div class="body">
+    <div class="mono" style="color:#1F2A05">— IA · LA MAISON</div>
+    <div class="display" style="font-size:144px">Qualité plateau,<br>sans le plateau.</div>
+    <div class="body-lg" style="max-width:1100px;color:#1F2A05;font-size:30px">
+      Pour les budgets qui ne permettent pas le tournage classique, on génère des productions photo et vidéo IA avec une vraie direction artistique. Tu n'as pas le plateau — tu as les images.
+    </div>
+  </div>
+  <div class="foot" style="color:#1F2A05"><span>07 / 20</span><span>IA · PHOTO + VIDÉO</span></div>
+</section>
+
+<!-- ════════════════ 08 — LOGO PRIMARY ════════════════ -->
+<section data-screen-label="08 Logo" class="bone">
+  <div class="chrome"><span class="brand-mark"><span class="dot"></span><b>IDENTITÉ</b></span><span>LOGO / PRIMARY</span></div>
+  <div class="body center" style="align-items:center;text-align:center">
+    <div class="mono" style="color:#6B6357">— WORDMARK PRIMAIRE</div>
+    <div style="font-family:var(--font-display);font-weight:800;font-size:480px;letter-spacing:-.06em;line-height:.86;font-variation-settings:'wdth' 92,'opsz' 96">BIY<span class="heat">OO</span></div>
+    <div class="mono" style="color:#6B6357;margin-top:24px">BRICOLAGE GROTESQUE · WGHT 800 · TRACKING -6%</div>
+  </div>
+  <div class="foot"><span>08 / 20</span><span>WORDMARK</span></div>
+</section>
+
+<!-- ════════════════ 09 — LOGO VARIANTES ════════════════ -->
+<section data-screen-label="09 Logo variantes" class="bone">
+  <div class="chrome"><span class="brand-mark"><span class="dot"></span><b>IDENTITÉ</b></span><span>LOGO / SYSTÈME</span></div>
+  <div class="body top">
+    <div class="mono" style="margin-bottom:64px">— LE SYSTÈME LOGOTYPE</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px">
+      <div style="aspect-ratio:1;background:var(--ink);display:flex;align-items:center;justify-content:center;color:var(--volt);font-family:var(--font-display);font-weight:800;font-size:340px;letter-spacing:-.07em;line-height:.86;position:relative">
+        B
+        <div class="reg tl" style="border-color:var(--volt);top:32px;left:32px"></div>
+        <div class="reg br" style="border-color:var(--volt);bottom:32px;right:32px"></div>
+      </div>
+      <div style="aspect-ratio:1;background:var(--ink);color:var(--bone);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px">
+        <svg width="360" height="360" viewBox="0 0 360 360">
+          <defs><path id="c2" d="M 180,180 m -140,0 a 140,140 0 1,1 280,0 a 140,140 0 1,1 -280,0"/></defs>
+          <circle cx="180" cy="180" r="172" fill="none" stroke="#F2EDE2" stroke-width="2"/>
+          <circle cx="180" cy="180" r="146" fill="none" stroke="#F2EDE2" stroke-width="1"/>
+          <text font-family="JetBrains Mono, monospace" font-size="16" letter-spacing="5" fill="#F2EDE2">
+            <textPath href="#c2" startOffset="0">BIYOO · PARIS · MAISON DE PRODUCTION · EST. 2026 · </textPath>
+          </text>
+          <text x="180" y="222" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="180" letter-spacing="-12" fill="#F2EDE2">B</text>
+        </svg>
+      </div>
+      <div style="aspect-ratio:1;background:var(--ink);display:flex;align-items:center;justify-content:center;color:var(--bone);font-family:var(--font-display);font-weight:800;font-size:108px;letter-spacing:-.06em;line-height:.9;padding:32px">BIY<span class="volt">OO</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:24px" class="mono">
+      <span>MONOGRAMME</span><span>SCEAU CIRCULAIRE</span><span>WORDMARK</span>
+    </div>
+  </div>
+  <div class="foot"><span>09 / 20</span><span>3 VARIANTES</span></div>
+</section>
+
+<!-- ════════════════ 10 — COLOR / INK + BONE ════════════════ -->
+<section data-screen-label="10 Color base">
+  <div class="chrome"><span class="brand-mark"><span class="dot"></span><b>COULEUR</b></span><span>SYSTÈME / BASE</span></div>
+  <div class="body top">
+    <div class="mono" style="margin-bottom:48px">— LES DEUX CANVAS</div>
+    <h1 class="h1">Encre. Papier os.<br>Rien d'autre.</h1>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:64px">
+      <div style="aspect-ratio:16/7;background:#0B0B0B;border:1px solid #22221F;position:relative">
+        <div style="position:absolute;left:48px;bottom:48px"><div class="mono">--ink</div><div class="h2" style="margin-top:10px;color:var(--bone)">#0B0B0B</div></div>
+      </div>
+      <div style="aspect-ratio:16/7;background:#F2EDE2;position:relative">
+        <div style="position:absolute;left:48px;bottom:48px"><div class="mono" style="color:#6B6357">--bone</div><div class="h2" style="margin-top:10px;color:var(--ink)">#F2EDE2</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>10 / 20</span><span>2 SURFACES</span></div>
+</section>
+
+<!-- ════════════════ 11 — COLOR / VOLT ════════════════ -->
+<section data-screen-label="11 Volt" class="volt">
+  <div class="chrome"><span class="brand-mark"><span class="dot"></span><b>ACCENT · VOLT</b></span><span>SIGNATURE</span></div>
+  <div class="body">
+    <div class="mono" style="color:#1F2A05">— L'ACCENT SIGNATURE</div>
+    <div class="display" style="font-size:240px">#D8FF36</div>
+    <div class="lead" style="color:#1F2A05">Acid yellow-green. CTA, hovers, marqueurs de scène. À utiliser <em>avec parcimonie</em> — 10% de la surface, jamais plus.</div>
+  </div>
+  <div class="foot" style="color:#1F2A05"><span>11 / 20</span><span>VOLT</span></div>
+</section>
+
+<!-- ════════════════ 12 — COLOR / HEAT + NEUTRALS ════════════════ -->
+<section data-screen-label="12 Heat + neutrals" class="bone">
+  <div class="chrome"><span class="brand-mark"><span class="dot"></span><b>ACCENT · HEAT</b></span><span>SECONDAIRE + NEUTRES</span></div>
+  <div class="body">
+    <div class="mono">— ACCENT CINÉMA + NEUTRES</div>
+    <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:48px;align-items:flex-end">
+      <div>
+        <div style="aspect-ratio:1;background:#FF3F1F;display:flex;align-items:flex-end;padding:32px;color:var(--bone)"><div><div class="mono">--heat</div><div class="h2" style="margin-top:8px">#FF3F1F</div></div></div>
+        <div class="body-lg" style="margin-top:24px;font-size:22px;color:#3A3530">Rouge-orange cinéma. REC, alertes, éditorial. Ne cohabite jamais avec Volt.</div>
+      </div>
+      <div>
+        <div class="mono" style="margin-bottom:16px">NEUTRAL SCALE · 50 → 900</div>
+        <div style="display:grid;grid-template-columns:repeat(10,1fr);border:1px solid #D9D1BC">
+          <div style="aspect-ratio:1;background:#FAF7EE"></div>
+          <div style="aspect-ratio:1;background:#EFEAE0"></div>
+          <div style="aspect-ratio:1;background:#D9D1BC"></div>
+          <div style="aspect-ratio:1;background:#B5AC97"></div>
+          <div style="aspect-ratio:1;background:#8F8674"></div>
+          <div style="aspect-ratio:1;background:#6B6357"></div>
+          <div style="aspect-ratio:1;background:#4D463E"></div>
+          <div style="aspect-ratio:1;background:#2F2B26"></div>
+          <div style="aspect-ratio:1;background:#1A1815"></div>
+          <div style="aspect-ratio:1;background:#0B0B0B"></div>
+        </div>
+        <div class="mono" style="margin-top:14px;color:#6B6357;display:flex;justify-content:space-between"><span>50</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500</span><span>600</span><span>700</span><span>800</span><span>900</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>12 / 20</span><span>HEAT + NEUTRES</span></div>
+</section>
+
+<!-- ════════════════ 13 — TYPE DISPLAY ════════════════ -->
+<section data-screen-label="13 Type display">
+  <div class="chrome"><span class="brand-mark"><span class="dot"></span><b>TYPOGRAPHIE</b></span><span>DISPLAY</span></div>
+  <div class="body">
+    <div class="mono">— BRICOLAGE GROTESQUE</div>
+    <div style="font-family:var(--font-display);font-weight:800;font-size:520px;letter-spacing:-.06em;line-height:.82;font-variation-settings:'wdth' 92,'opsz' 96">Aa</div>
+    <div style="display:flex;justify-content:space-between;gap:64px;align-items:flex-end">
+      <div>
+        <div class="h2">Bricolage Grotesque</div>
+        <div class="body-lg" style="margin-top:16px;color:#BDB7A8;font-size:24px">Variable · wdth 75–100 · opsz 12–96 · wght 400–800. La voix display de Biyoo. Bold, tendue, expressive.</div>
+      </div>
+      <div class="mono-lg" style="text-align:right;color:#BDB7A8">
+        <div>DISPLAY · 200–280px</div>
+        <div>H1 · 128px</div>
+        <div>H2 · 72px</div>
+        <div>H3 · 44px</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>13 / 20</span><span>DISPLAY</span></div>
+</section>
+
+<!-- ════════════════ 14 — TYPE BODY + MONO ════════════════ -->
+<section data-screen-label="14 Type body" class="bone">
+  <div class="chrome"><span class="brand-mark"><span class="dot"></span><b>TYPOGRAPHIE</b></span><span>BODY + MONO</span></div>
+  <div class="body" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:flex-end;padding-bottom:140px">
+    <div>
+      <div class="mono">— INTER TIGHT · BODY</div>
+      <div style="font-family:var(--font-body);font-size:340px;font-weight:500;letter-spacing:-.02em;line-height:1">Aa</div>
+      <div class="h3" style="margin-top:24px">Inter Tight</div>
+      <div class="body-lg" style="margin-top:14px;color:#3A3530;font-size:22px">Le corps. Neutre, tendu, ne se fait pas remarquer.</div>
+    </div>
+    <div>
+      <div class="mono">— JETBRAINS MONO · METADATA</div>
+      <div style="font-family:var(--font-mono);font-size:280px;font-weight:500;letter-spacing:0;line-height:1">Aa</div>
+      <div class="h3" style="margin-top:24px">JetBrains Mono</div>
+      <div class="body-lg" style="margin-top:14px;color:#3A3530;font-size:22px">Timecode, slate, crédits. La voix feuille de tournage.</div>
+    </div>
+  </div>
+  <div class="foot"><span>14 / 20</span><span>BODY · MONO</span></div>
+</section>
+
+<!-- ════════════════ 15 — VOICE ════════════════ -->
+<section data-screen-label="15 Voice">
+  <div class="chrome"><span class="brand-mark"><span class="dot"></span><b>VOIX</b></span><span>DO / DON'T</span></div>
+  <div class="body top">
+    <div class="mono" style="margin-bottom:48px">— COMMENT ON PARLE</div>
+    <h1 class="h1" style="margin-bottom:48px">Direct.<br>Tutoiement.<br><span class="volt">Sans détour.</span></h1>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+      <div style="border:1.5px solid var(--volt);padding:36px 40px">
+        <div class="mono volt" style="margin-bottom:24px">✓ BIYOO</div>
+        <div class="h3" style="line-height:1.2;font-weight:500">"On voit grand. Tu viens ?"</div>
+        <div class="h3" style="line-height:1.2;font-weight:500;margin-top:18px;color:#BDB7A8">"Tournage : 4 jours. Livraison : 12 jours après."</div>
+      </div>
+      <div style="border:1.5px solid var(--heat);padding:36px 40px">
+        <div class="mono heat" style="margin-bottom:24px">✗ PAS BIYOO</div>
+        <div class="h3" style="line-height:1.2;font-weight:500;color:#BDB7A8">"Nos solutions audiovisuelles premium accompagnent votre projet…"</div>
+        <div class="h3" style="line-height:1.2;font-weight:500;margin-top:18px;color:#BDB7A8">"Découvrez nos services ! 🎬✨"</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>15 / 20</span><span>VOIX</span></div>
+</section>
+
+<!-- ════════════════ 16 — LEXIQUE ════════════════ -->
+<section data-screen-label="16 Lexique" class="bone">
+  <div class="chrome"><span class="brand-mark"><span class="dot"></span><b>LEXIQUE</b></span><span>VOCABULAIRE BIYOO</span></div>
+  <div class="body top">
+    <div class="mono" style="margin-bottom:48px">— PRÉFÈRE / ÉVITE</div>
+    <div style="display:grid;grid-template-columns:1fr 60px 1fr;gap:32px;font-family:var(--font-display);font-size:48px;font-weight:600;letter-spacing:-.02em;line-height:1.1">
+      <div style="display:flex;flex-direction:column;gap:18px;border-top:2px solid var(--ink);padding-top:24px">
+        <div>brief</div><div>tournage</div><div>final cut</div><div>maison · boîte</div><div>on (collectif)</div><div>crew</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px;color:#8F8674;font-family:var(--font-mono);font-size:24px;border-top:2px solid #8F8674;padding-top:24px">
+        <div>→</div><div>→</div><div>→</div><div>→</div><div>→</div><div>→</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px;color:#8F8674;text-decoration:line-through;border-top:2px solid #8F8674;padding-top:24px">
+        <div>cahier des charges</div><div>shooting</div><div>version finale</div><div>studio</div><div>nous</div><div>équipe technique</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>16 / 20</span><span>LEXIQUE</span></div>
+</section>
+
+<!-- ════════════════ 17 — ASPECT RATIOS ════════════════ -->
+<section data-screen-label="17 Aspect ratios">
+  <div class="chrome"><span class="brand-mark"><span class="dot"></span><b>GRILLE</b></span><span>ASPECT RATIOS</span></div>
+  <div class="body">
+    <div class="mono">— LA GRILLE COMPOSITIONNELLE</div>
+    <h1 class="h1">Le cadre est<br>le système.</h1>
+    <div style="display:grid;grid-template-columns:2.39fr 1.6fr 1fr 9fr;gap:24px;align-items:flex-end" >
+      <div>
+        <div style="aspect-ratio:2.39/1;background:#161614;border:1px solid #22221F;position:relative">
+          <div class="reg tl" style="top:8px;left:8px;width:14px;height:14px;border-color:var(--bone)"></div>
+          <div class="reg br" style="bottom:8px;right:8px;width:14px;height:14px;border-color:var(--bone)"></div>
+        </div>
+        <div class="mono" style="margin-top:12px;color:var(--bone)">2.39 : 1 · CINÉMA</div>
+      </div>
+      <div>
+        <div style="aspect-ratio:16/9;background:#161614;border:1px solid #22221F"></div>
+        <div class="mono" style="margin-top:12px;color:var(--bone)">16 : 9 · WEB</div>
+      </div>
+      <div>
+        <div style="aspect-ratio:1;background:#161614;border:1px solid #22221F"></div>
+        <div class="mono" style="margin-top:12px;color:var(--bone)">1 : 1 · CARRÉ</div>
+      </div>
+      <div>
+        <div style="aspect-ratio:9/16;background:#161614;border:1px solid #22221F;max-height:540px"></div>
+        <div class="mono" style="margin-top:12px;color:var(--bone)">9 : 16 · VERTICAL</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>17 / 20</span><span>4 RATIOS</span></div>
+</section>
+
+<!-- ════════════════ 18 — IMAGERY ════════════════ -->
+<section data-screen-label="18 Imagery" class="bone">
+  <div class="chrome"><span class="brand-mark"><span class="dot"></span><b>IMAGERIE</b></span><span>DIRECTION PHOTO</span></div>
+  <div class="body top">
+    <div class="mono" style="margin-bottom:48px">— DIRECTION PHOTO</div>
+    <h1 class="h1" style="margin-bottom:64px">Contrastée. Chaude.<br>Granuleuse.</h1>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+      <div style="aspect-ratio:3/4;background:linear-gradient(180deg,#1A1815 0%,#4D463E 60%,#8F8674 100%);position:relative"><div style="position:absolute;left:12px;bottom:12px;color:#F2EDE2" class="mono">FRAME 01</div></div>
+      <div style="aspect-ratio:3/4;background:linear-gradient(135deg,#FF3F1F 0%,#0B0B0B 80%);position:relative"><div style="position:absolute;left:12px;bottom:12px;color:#F2EDE2" class="mono">FRAME 02</div></div>
+      <div style="aspect-ratio:3/4;background:linear-gradient(180deg,#0B0B0B 30%,#2F2B26 100%);position:relative"><div style="position:absolute;left:12px;bottom:12px;color:#F2EDE2" class="mono">FRAME 03</div></div>
+      <div style="aspect-ratio:3/4;background:linear-gradient(135deg,#8F8674 0%,#1A1815 80%);position:relative"><div style="position:absolute;left:12px;bottom:12px;color:#F2EDE2" class="mono">FRAME 04</div></div>
+    </div>
+    <div class="body-lg" style="margin-top:32px;color:#3A3530;font-size:22px;max-width:1400px">Pas de stock. Pas de sourires-objectif. Crops cinéma 2.39:1 quand on peut, 16:9 par défaut. NB autorisé sur les portraits équipe — couleur au hover.</div>
+  </div>
+  <div class="foot"><span>18 / 20</span><span>IMAGERIE</span></div>
+</section>
+
+<!-- ════════════════ 19 — MOTIFS ════════════════ -->
+<section data-screen-label="19 Motifs">
+  <div class="chrome"><span class="brand-mark"><span class="dot"></span><b>MOTIFS</b></span><span>FEUILLE DE TOURNAGE</span></div>
+  <div class="marquee top"><div class="marquee-track">
+    <span class="item">FILM</span><span class="item">SÉRIES</span><span class="item">SOCIAL</span><span class="item">IA</span><span class="item">PRÉ-PROD</span><span class="item">PROD</span><span class="item">POST</span>
+    <span class="item">FILM</span><span class="item">SÉRIES</span><span class="item">SOCIAL</span><span class="item">IA</span><span class="item">PRÉ-PROD</span><span class="item">PROD</span><span class="item">POST</span>
+  </div></div>
+  <div class="body center" style="padding-top:200px;padding-bottom:200px">
+    <div class="mono">— LE VOCABULAIRE VISUEL</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:32px">
+      <div style="border:1px solid #22221F;padding:36px;text-align:center">
+        <div style="font-family:var(--font-mono);font-size:36px;letter-spacing:.04em">00:00:42:18</div>
+        <div class="mono" style="margin-top:18px">TIMECODE CHIP</div>
+      </div>
+      <div style="border:1px solid #22221F;padding:36px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px">
+        <div style="display:flex;gap:10px"><span class="chip">SC.02</span><span class="chip">TK.04</span></div>
+        <div class="mono" style="margin-top:18px">SCENE · TAKE</div>
+      </div>
+      <div style="border:1px solid #22221F;padding:36px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px">
+        <div style="display:flex;gap:10px"><span class="chip volt-fill">● REC</span><span class="chip heat-fill">CUT</span></div>
+        <div class="mono" style="margin-top:18px">STATUS</div>
+      </div>
+      <div style="border:1px solid #22221F;padding:36px;text-align:center">
+        <div style="font-family:var(--font-display);font-weight:700;font-size:64px;letter-spacing:-.04em;line-height:.9">04 <span style="color:#7F7A6E">/ 12</span></div>
+        <div class="mono" style="margin-top:18px">NUMÉROTATION</div>
+      </div>
+    </div>
+  </div>
+  <div class="marquee bot volt"><div class="marquee-track">
+    <span class="item">DU BRIEF AU FINAL CUT</span><span class="item">ON VOIT GRAND</span><span class="item">PARIS · 2026</span>
+    <span class="item">DU BRIEF AU FINAL CUT</span><span class="item">ON VOIT GRAND</span><span class="item">PARIS · 2026</span>
+  </div></div>
+</section>
+
+<!-- ════════════════ 20 — CONTACT / END ════════════════ -->
+<section data-screen-label="20 Contact" class="grain">
+  <div class="chrome"><span class="brand-mark"><span class="dot"></span><b>BIYOO</b></span><span>FIN · MERCI</span></div>
+  <div class="reg tl"></div><div class="reg tr"></div><div class="reg bl"></div><div class="reg br"></div>
+  <div class="body center" style="align-items:flex-start">
+    <div class="mono">— ON Y VA ?</div>
+    <div class="mega">Brief<br>nous.</div>
+    <div style="display:flex;gap:64px;margin-top:32px;font-family:var(--font-mono);font-size:24px;letter-spacing:.04em">
+      <div><div style="color:#7F7A6E;font-size:18px;text-transform:uppercase;margin-bottom:10px">EMAIL</div>hello@biyoo.paris</div>
+      <div><div style="color:#7F7A6E;font-size:18px;text-transform:uppercase;margin-bottom:10px">ADRESSE</div>Paris, FR</div>
+      <div><div style="color:#7F7A6E;font-size:18px;text-transform:uppercase;margin-bottom:10px">SOCIAL</div>@biyoo.paris</div>
+    </div>
+  </div>
+  <div class="foot"><span>20 / 20</span><span>00:03:12:04 · CUT</span></div>
+</section>
+
+</deck-stage>
+
+</body>
+</html>

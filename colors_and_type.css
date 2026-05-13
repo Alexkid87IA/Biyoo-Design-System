@@ -1,0 +1,230 @@
+/* ============================================================
+   BIYOO — Colors & Type foundations
+   ============================================================
+   Tokens for the Biyoo audiovisual production brand.
+   Audience: hype / culture / direct-to-consumer.
+   Vibe: cinéma-grade craft + agency energy.
+   ============================================================ */
+
+/* ----------  FONTS  ---------- */
+/* Display: Bricolage Grotesque (variable, expressive)
+   Body:    Inter Tight (clean, neutral, tight)
+   Mono:    JetBrains Mono (timecode, labels, metadata)
+   Loaded from Google Fonts in each surface that uses them. */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400;12..96,75..100,500;12..96,75..100,600;12..96,75..100,700;12..96,75..100,800&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* -------- CORE PALETTE -------- */
+  --ink:        #0B0B0B;   /* near-black canvas */
+  --ink-2:      #161614;   /* raised surface on ink */
+  --ink-3:      #22221F;   /* hairline on ink */
+  --bone:       #F2EDE2;   /* warm offwhite (the "paper") */
+  --bone-2:     #E8E2D3;   /* raised surface on bone */
+  --bone-3:     #D9D1BC;   /* hairline on bone */
+
+  /* -------- ACCENTS -------- */
+  --volt:       #D8FF36;   /* signature acid yellow-green */
+  --volt-deep:  #B8DC1D;   /* pressed / on-bone variant */
+  --heat:       #FF3F1F;   /* cinematic red-orange */
+  --heat-deep:  #D8311A;
+  --cyan:       #5BE2FF;   /* used VERY sparingly, for tags */
+
+  /* -------- NEUTRAL SCALE (works on bone canvases) -------- */
+  --neutral-50:  #FAF7EE;
+  --neutral-100: #EFEAE0;
+  --neutral-200: #D9D1BC;
+  --neutral-300: #B5AC97;
+  --neutral-400: #8F8674;
+  --neutral-500: #6B6357;
+  --neutral-600: #4D463E;
+  --neutral-700: #2F2B26;
+  --neutral-800: #1A1815;
+  --neutral-900: #0B0B0B;
+
+  /* -------- SEMANTIC: ON INK (the default surface) -------- */
+  --bg:           var(--ink);
+  --bg-raised:    var(--ink-2);
+  --fg:           var(--bone);
+  --fg-1:         var(--bone);            /* primary text */
+  --fg-2:         #BDB7A8;                /* secondary text */
+  --fg-3:         #7F7A6E;                /* tertiary / labels */
+  --rule:         var(--ink-3);           /* hairlines */
+  --accent:       var(--volt);
+  --accent-fg:    var(--ink);             /* text ON accent */
+
+  /* -------- SEMANTIC: STATUS -------- */
+  --positive:     #84F02A;
+  --negative:     var(--heat);
+  --warning:      #FFB23A;
+
+  /* -------- SPACING SCALE (8px grid + half-step) -------- */
+  --space-0:   0;
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   24px;
+  --space-6:   32px;
+  --space-7:   48px;
+  --space-8:   64px;
+  --space-9:   96px;
+  --space-10:  128px;
+  --space-11:  192px;
+
+  /* -------- RADII (mostly sharp, soft only on chips) -------- */
+  --radius-0:   0px;                      /* default — sharp corners */
+  --radius-xs:  2px;
+  --radius-sm:  4px;                      /* chips, tags */
+  --radius-md:  8px;                      /* small cards, buttons sometimes */
+  --radius-lg:  14px;                     /* large cards, modals */
+  --radius-pill: 999px;                   /* pills, buttons in marquee */
+
+  /* -------- BORDERS -------- */
+  --border-hairline: 1px solid var(--rule);
+  --border-strong:   1.5px solid var(--fg-1);
+
+  /* -------- SHADOWS (flat brand → minimal use) -------- */
+  --shadow-0: none;
+  --shadow-1: 0 1px 0 0 rgba(0,0,0,.04), 0 4px 12px -4px rgba(0,0,0,.08);
+  --shadow-2: 0 12px 32px -8px rgba(0,0,0,.18);
+  /* used only on light surfaces; on ink we use rules instead of shadow */
+
+  /* -------- MOTION -------- */
+  --ease-snap:   cubic-bezier(.2,.9,.2,1);     /* default */
+  --ease-glide:  cubic-bezier(.6,.05,.2,1);    /* longer transitions */
+  --ease-bounce: cubic-bezier(.34,1.56,.64,1); /* rare, on chip pops */
+  --dur-1: 120ms;
+  --dur-2: 200ms;
+  --dur-3: 320ms;
+  --dur-4: 600ms;
+
+  /* -------- TYPE SCALE -------- */
+  --font-display: 'Bricolage Grotesque', 'Inter Tight', system-ui, sans-serif;
+  --font-body:    'Inter Tight', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  /* Display weights skew bold; body skews medium. */
+  --weight-display: 700;
+  --weight-display-light: 500;
+  --weight-body:    400;
+  --weight-body-strong: 600;
+
+  /* Tracking */
+  --tracking-tight: -0.04em;   /* display headlines */
+  --tracking-snug:  -0.02em;
+  --tracking-normal: 0;
+  --tracking-mono:  0.02em;    /* metadata mono */
+  --tracking-label: 0.08em;    /* small uppercase labels */
+}
+
+/* ============================================================
+   SEMANTIC TYPE CLASSES
+   ============================================================ */
+
+.t-mega {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(64px, 12vw, 200px);
+  line-height: 0.86;
+  letter-spacing: -0.045em;
+  font-variation-settings: "wdth" 92, "opsz" 96;
+}
+
+.t-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(44px, 6vw, 96px);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  font-variation-settings: "wdth" 96, "opsz" 72;
+}
+
+.t-h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(36px, 4vw, 64px);
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+}
+
+.t-h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(28px, 2.6vw, 40px);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+}
+
+.t-h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.t-lead {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(18px, 1.4vw, 22px);
+  line-height: 1.36;
+  letter-spacing: -0.01em;
+}
+
+.t-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+.t-body-sm {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.t-label {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.t-meta {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: var(--tracking-mono);
+}
+
+.t-tag {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+
+.surface-ink  { background: var(--ink);  color: var(--bone); }
+.surface-bone { background: var(--bone); color: var(--ink);  --fg-1:var(--ink); --fg-2:#3A3530; --fg-3:#6B6357; --rule:var(--bone-3); --shadow-1: 0 1px 0 0 rgba(0,0,0,.04), 0 4px 12px -4px rgba(0,0,0,.08); }
+.surface-volt { background: var(--volt); color: var(--ink);  --fg-1:var(--ink); --fg-2:#1F2A05; }
+.surface-heat { background: var(--heat); color: var(--bone); }
+
+.grain::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  opacity: .14;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}

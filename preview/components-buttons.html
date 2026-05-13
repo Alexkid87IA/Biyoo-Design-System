@@ -1,0 +1,21 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--font-body)}
+  .wrap{padding:28px 32px;display:flex;flex-direction:column;gap:14px}
+  .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .label{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#7F7A6E;width:88px;flex:none}
+  .btn{font-family:var(--font-mono);font-weight:500;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;padding:13px 20px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;border-radius:0}
+  .btn.primary{background:var(--volt);color:var(--ink)}
+  .btn.secondary{background:transparent;color:var(--bone);border:1.5px solid var(--bone)}
+  .btn.ghost{background:transparent;color:var(--bone);padding:13px 0}
+  .btn.ghost::after{content:"";display:block;width:24px;height:1.5px;background:currentColor;margin-left:4px}
+  .btn.danger{background:var(--heat);color:var(--bone)}
+  .arrow{font-family:var(--font-mono)}
+</style></head>
+<body><div class="wrap">
+  <div class="row"><span class="label">Primary</span><button class="btn primary">Voir le reel <span class="arrow">→</span></button><button class="btn primary">Démarrer un brief</button></div>
+  <div class="row"><span class="label">Secondary</span><button class="btn secondary">Nos projets</button><button class="btn secondary">Télécharger la deck</button></div>
+  <div class="row"><span class="label">Ghost</span><button class="btn ghost">Tous les projets</button><button class="btn ghost">À propos</button></div>
+  <div class="row"><span class="label">Danger</span><button class="btn danger">● REC · Live</button></div>
+</div></body></html>

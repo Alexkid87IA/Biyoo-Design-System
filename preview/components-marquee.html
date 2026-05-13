@@ -1,0 +1,25 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--font-body);overflow:hidden}
+  .wrap{padding:0;display:flex;flex-direction:column;gap:0}
+  .bar{padding:18px 0;border-top:1px solid #22221F;border-bottom:1px solid #22221F;overflow:hidden;white-space:nowrap}
+  .bar.volt{background:var(--volt);color:var(--ink);border-color:#B8DC1D}
+  .track{display:inline-flex;align-items:center;gap:36px;animation:scroll 30s linear infinite}
+  .item{font-family:var(--font-display);font-weight:700;font-size:36px;letter-spacing:-.03em;line-height:1;display:inline-flex;align-items:center;gap:36px}
+  .item::after{content:"●";font-size:14px;color:#7F7A6E}
+  .bar.volt .item::after{color:#0B0B0B}
+  @keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .sub{padding:14px 28px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#7F7A6E;display:flex;justify-content:space-between}
+</style></head>
+<body><div class="wrap">
+  <div class="bar"><div class="track">
+    <span class="item">FILM</span><span class="item">SÉRIES</span><span class="item">SOCIAL</span><span class="item">IA</span><span class="item">PRÉ-PROD</span><span class="item">POST</span>
+    <span class="item">FILM</span><span class="item">SÉRIES</span><span class="item">SOCIAL</span><span class="item">IA</span><span class="item">PRÉ-PROD</span><span class="item">POST</span>
+  </div></div>
+  <div class="bar volt"><div class="track">
+    <span class="item">DU BRIEF AU FINAL CUT</span><span class="item">PARIS · 2026</span><span class="item">ON VOIT GRAND</span>
+    <span class="item">DU BRIEF AU FINAL CUT</span><span class="item">PARIS · 2026</span><span class="item">ON VOIT GRAND</span>
+  </div></div>
+  <div class="sub"><span>Marquee · 30s loop · linear</span><span>VERTICALES / TAGLINE</span></div>
+</div></body></html>

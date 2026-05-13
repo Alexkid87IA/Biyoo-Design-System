@@ -1,0 +1,28 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;background:var(--bone);color:var(--ink);font-family:var(--font-body)}
+  .wrap{padding:24px 28px;display:flex;flex-direction:column;gap:14px}
+  .group{display:flex;flex-direction:column;gap:6px}
+  .label{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#6B6357}
+  input{font-family:var(--font-body);font-size:16px;padding:14px 0;background:transparent;border:none;border-bottom:1.5px solid #0B0B0B;outline:none;color:#0B0B0B;width:100%}
+  input::placeholder{color:#8F8674}
+  .fields{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .check{display:flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+  .box{width:18px;height:18px;border:1.5px solid #0B0B0B;display:inline-flex;align-items:center;justify-content:center}
+  .box.on{background:#D8FF36}
+  .box.on::after{content:"";width:9px;height:5px;border-left:2px solid #0B0B0B;border-bottom:2px solid #0B0B0B;transform:rotate(-45deg) translate(1px,-1px)}
+  .checks{display:flex;gap:18px}
+</style></head>
+<body><div class="wrap">
+  <div class="fields">
+    <div class="group"><span class="label">Nom · projet</span><input value="Campagne SS27"/></div>
+    <div class="group"><span class="label">Email</span><input placeholder="prenom@maison.com"/></div>
+  </div>
+  <div class="checks">
+    <span class="check"><span class="box on"></span>Film</span>
+    <span class="check"><span class="box on"></span>Social</span>
+    <span class="check"><span class="box"></span>Série</span>
+    <span class="check"><span class="box"></span>IA</span>
+  </div>
+</div></body></html>

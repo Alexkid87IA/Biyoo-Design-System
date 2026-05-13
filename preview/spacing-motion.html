@@ -1,0 +1,22 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;background:var(--bone);color:var(--ink);font-family:var(--font-body)}
+  .wrap{padding:28px 32px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .item{display:flex;flex-direction:column;gap:10px}
+  .track{height:8px;background:#EFEAE0;border-radius:4px;position:relative;overflow:hidden}
+  .ball{position:absolute;top:-4px;left:0;width:16px;height:16px;background:#D8FF36;border:1.5px solid #0B0B0B;border-radius:999px;animation-duration:2.4s;animation-iteration-count:infinite;animation-direction:alternate}
+  .b1 .ball{animation-name:run;animation-timing-function:cubic-bezier(.2,.9,.2,1)}
+  .b2 .ball{animation-name:run;animation-timing-function:cubic-bezier(.6,.05,.2,1)}
+  .b3 .ball{animation-name:run;animation-timing-function:cubic-bezier(.34,1.56,.64,1)}
+  .b4 .ball{animation-name:run;animation-timing-function:linear}
+  @keyframes run { from{left:0} to{left:calc(100% - 16px)} }
+  .lbl{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#6B6357;display:flex;justify-content:space-between}
+  .lbl b{font-weight:500;color:#0B0B0B}
+</style></head>
+<body><div class="wrap">
+  <div class="item b1"><div class="track"><div class="ball"></div></div><div class="lbl"><b>Snap</b><span>default</span></div></div>
+  <div class="item b2"><div class="track"><div class="ball"></div></div><div class="lbl"><b>Glide</b><span>pages</span></div></div>
+  <div class="item b3"><div class="track"><div class="ball"></div></div><div class="lbl"><b>Bounce</b><span>chip pop</span></div></div>
+  <div class="item b4"><div class="track"><div class="ball"></div></div><div class="lbl"><b>Linear</b><span>marquee</span></div></div>
+</div></body></html>

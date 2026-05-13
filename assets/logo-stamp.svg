@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 360">
+  
+  <defs>
+    <path id="circ" d="M 180,180 m -130,0 a 130,130 0 1,1 260,0 a 130,130 0 1,1 -260,0"></path>
+  </defs>
+  <circle cx="180" cy="180" r="172" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+  <circle cx="180" cy="180" r="142" fill="none" stroke="currentColor" stroke-width="1"></circle>
+  <text font-family="&#39;JetBrains Mono&#39;, monospace" font-size="14" letter-spacing="6" fill="currentColor">
+    <textPath href="#circ" startOffset="0">BIYOO · PARIS · MAISON DE PRODUCTION · EST. 2026 · </textPath>
+  </text>
+  <text x="180" y="220" text-anchor="middle" font-family="&#39;Bricolage Grotesque&#39;, system-ui, sans-serif" font-weight="800" font-size="180" letter-spacing="-0.06em" fill="currentColor">B</text>
+</svg>

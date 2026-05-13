@@ -1,0 +1,20 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--font-body)}
+  .wrap{padding:28px 32px;display:flex;flex-direction:column;gap:16px}
+  .row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.02em}
+  .label{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#7F7A6E}
+  .chip{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:#22221F;color:var(--bone);padding:6px 10px;border-radius:4px}
+  .chip.volt{background:var(--volt);color:var(--ink)}
+  .chip.heat{background:var(--heat);color:var(--bone)}
+  .tag{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#7F7A6E;border:1px solid #2F2F2C;padding:5px 9px;border-radius:4px}
+  .key{color:#7F7A6E;width:80px;flex:none}
+</style></head>
+<body><div class="wrap">
+  <div class="row"><span class="key label">Timecode</span><span class="mono">00:00:42:18</span><span class="mono" style="color:#7F7A6E">/</span><span class="mono">00:03:12:04</span></div>
+  <div class="row"><span class="key label">Slate</span><span class="chip">SC.02</span><span class="chip">TK.04</span><span class="chip volt">REC</span><span class="chip heat">CUT</span></div>
+  <div class="row"><span class="key label">Tag</span><span class="tag">Film</span><span class="tag">Série</span><span class="tag">Social</span><span class="tag">IA</span></div>
+  <div class="row"><span class="key label">Label</span><span class="label">PROJET 04 / 12 · CLIENT · 2026</span></div>
+</div></body></html>
